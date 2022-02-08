@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>countdown</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div class="inp" >
+      
+        <table>
+            <th>Hours</th>
+            <th>Minutes</th>
+            <th>sec</th>
+            <tr>
+                <td> <input type="number" id=hrs name=hrs placeholder="12" min="0" maxlength="2" required  oninput="checkhrs()"> </td>
+                <td><input type="number" id=min name=min placeholder="00" required oninput="checkmin()"></td>
+                <td><input type="number" id=sec name=sec placeholder="00"  required oninput="checksec()"></td>
+                
+            </tr>
+        </table>
+       
+
+    <br>
+    
+    
+    </div>
+<div class="btnset">
+    <button  class="btnl button button2 " onclick="start()"> Start A Timer</button>
+    <button  class="button button2" onclick="restart()"> Restart</button>
+    <button  class="button button2" onclick="pause()"> Pause</button>
+    <button  class="button button2" id="res" onclick="reset()"> Reset</button>
+</div>
+    
+    <!-- <p id=check></p>  -->
+
+    <div class="square-block" >
+     <p id=countdown></p>
+    </div>
+
+    <script>
+          
+        let time=0;        
+        let f=0
+
+        function pause(){
+            f=0
+          
+            document.getElementById("res").display = 'None';
+            
+            
+
+        }
+
+        function restart(){
+            f=1
+        
+        }
+
+        function reset(){
+
+            if(f==0&& time){
+                alert('Please Restart the timer ')
+            }
+            else if(f==0 ){
+                alert('Please Start the timer ')
+            }
+            else{
+            document.getElementById('sec').value='';
+            document.getElementById('min').value='';
+            document.getElementById('hrs').value='';
+            time=-1
+            }
+
+        }
+
+        function checkhrs(){
+            let hrs = (document.getElementById('hrs').value);
+
+            if(hrs[0]==='0' && hrs[1]){
+                alert('use valid measure')
+                document.getElementById('hrs').value='';
+            }
+            else{
+                hrs=parseInt(hrs)
+            if (hrs < 0 || hrs > 59)
+                {   
+                    alert('use valid measure');
+                document.getElementById('hrs').value='';
+               }
+            }
+
+        }
+
+        function checksec(){
+            let sec = (document.getElementById('sec').value);
+
+            if(sec[0]==='0' && sec[1]){
+                alert('use valid measure')
+                document.getElementById('sec').value='';
+            }
+            else{
+                sec=parseInt(sec)
+            if (sec < 0 || sec > 59)
+                {   
+                    alert('use valid measure');
+                document.getElementById('sec').value='';
+               }
+            }
+
+        }
+
+        function checkmin(){
+            let min = (document.getElementById('min').value);
+
+            if(min[0]==='0' && min[1]){
+                alert('use valid measure')
+                document.getElementById('min').value='';
+            }
+            else{
+                min=parseInt(min)
+            if (min < 0 || min > 59)
+                {   
+                    alert('use valid measure');
+                document.getElementById('min').value='';
+               }
+            }
+        }
+
+        // }
+
+
+
+        setInterval(check,1000)
+        function check(){
+            if(time>=0 && f===1)
+            {
+                let newhrs= Math.floor(time/(60*60));
+                let newmin= Math.floor(time/60)%60;
+                let newsec= Math.floor(time%60);
+            document.getElementById("countdown").innerHTML = newhrs+"h : " + newmin+"m : "+newsec + 's';
+            time--;
+            }
+            if (time ===-1 && f===1) {
+        
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+  }
+        }
+       
+        function start(){
+        let countdown=document.getElementById('countdown')
+
+        document.getElementById('countdown').style.display = "block";
+        let hrs= parseInt(document.getElementById('hrs').value);
+        let min=parseInt(document.getElementById('min').value);
+        let sec=parseInt(document.getElementById('sec').value);
+
+        time=  (hrs*60*60)+ (min*60) + sec;
+        // document.getElementById("check").innerHTML =time;
+
+        check();
+        f=1;
+        
+          
+        }
+
+    </script>
+    
+</body>
+</html>
+
+
+<!-- https://lodhagaurav01.github.io/email_verification/  -->
